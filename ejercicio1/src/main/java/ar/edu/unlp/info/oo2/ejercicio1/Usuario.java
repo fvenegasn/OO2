@@ -14,7 +14,7 @@ public class Usuario {
 	}
 	
 	public void retweetear(Posteo tweet) {
-		Posteo rt = new Retweet(tweet.getDueño(), tweet);
+		Posteo rt = new Retweet(tweet.getDuenio(), tweet);
 		posteos.add(rt);
 	}
 	

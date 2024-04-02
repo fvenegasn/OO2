@@ -8,15 +8,19 @@ import org.junit.jupiter.api.Test;
 public class JugadaTest {
 
 	//declaras
-	Jugada jugador1 = new Piedra();
-	Jugada jugador2 = new Papel();
+	private Jugada jugador1;
+	private Jugada jugador2;
 	
-	Jugada jugador3 = new Lagarto();
-	Jugada jugador4 = new Spock();
+	private Jugada jugador3;
+	private Jugada jugador4;
 	
 	//inicias
 	void setUp() {
-		// n/a
+		jugador1 = new Piedra();
+		jugador2 = new Papel();
+		
+		jugador3 = new Lagarto();
+		jugador4 = new Spock();
 	}
 	
 	//probas

@@ -10,6 +10,15 @@ public class BibliotecaTest {
 	
 	private Biblioteca biblioteca;
 	
+	/*
+	 Resulta fundamental aclarar que el test provisto mas abajo no funciona.
+	 Esto es porque la funcion que crea el JSON forma un mapa para mostrar de esa
+	 manera la informacion que siempre es distinto, ya que es algo que depende de
+	 cada una de las ejecuciones que se intenten hacer.
+	 Para testear de manera correcta y precisa, hay que deserializar el JSON,
+	 creando y llevandolo a un objeto y comparandolo contra los objetos que tenga
+	  */
+	
 	@BeforeEach
 	void setUp() {
 		biblioteca = new Biblioteca();

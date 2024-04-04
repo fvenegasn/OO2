@@ -26,18 +26,13 @@ public class BibliotecaTest {
     @Test
     void exporterTest() {
     	// valida que el exporter sea JSON y no Voorhees
-        //assertNotEquals(exportar, biblioteca.getExporter());
-    	//System.out.print("AAAAAAAAAAAAAAAAAA: "+ biblioteca.getExporter());
         assertTrue(biblioteca.getExporter().toString().contains("VoorheesExporter"));
         biblioteca.setExporter(exportar);
-        assertTrue(biblioteca.getExporter().toString().contains("JSONAdapter"));
-        //System.out.print("AAAAAAAAAAAAAAAAAA: "+ biblioteca.getExporter());    
+        assertTrue(biblioteca.getExporter().toString().contains("JSONAdapter")); 
+        
+        // misma logica que con Jackson (inciso pendiente)    
     }
-    @Test 
-    void imprimir(){
 
-        // a desarrollar cuando sepamos si está bien el del 3 normal
-    }
 
 
 }

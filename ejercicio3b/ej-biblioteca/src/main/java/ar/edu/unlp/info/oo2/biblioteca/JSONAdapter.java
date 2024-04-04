@@ -5,6 +5,14 @@ import org.json.simple.*;
 
 public class JSONAdapter extends VoorheesExporter {
 	
+	/*
+	Aca esta bien que herede a Vorhees, ya que no lo puedo modificar
+	y, por ello, no me queda otra. Como regla general, cuando no podes
+	tocar o el target o el adaptado (Adaptee), debes heredar. Si es
+	codigo propio o modificable, es posible generar una interfaz en el
+	medio que permita implementar el patron 
+	*/
+	
 	private JSONObject exportar(Socio socio) {
 		JSONObject asociado = new JSONObject();
 		asociado.put("nombre", socio.getNombre());

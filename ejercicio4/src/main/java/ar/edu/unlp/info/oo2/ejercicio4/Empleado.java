@@ -11,8 +11,8 @@ public abstract class Empleado {
 	Obligo a que implementen lo que pido.
 	*/
 	
-	final double descuentoBasico = 0.13; 
-	final double descuentoAdicional = 0.05;
+	private final double descuentoBasico = 0.13; 
+	private final double descuentoAdicional = 0.05;
 	
 	public double sueldo() {
 		return (this.basico()+this.adicional())-this.descuento();

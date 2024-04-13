@@ -1,16 +1,11 @@
 package ar.edu.unlp.info.oo2.ejercicio4;
 
-public class Temporario extends Empleado{
+public class Temporario extends CasadoConHijos{ // papucho!!!
 
-	private boolean casado;
-	private int hijos;
 	private int horasTrabajo;
 	
-	
-	
 	public Temporario(boolean casado, int hijos, int horasTrabajo) {
-		this.casado = casado;
-		this.hijos = hijos;
+		super(casado, hijos);
 		this.horasTrabajo = horasTrabajo;
 	}
 
@@ -19,9 +14,6 @@ public class Temporario extends Empleado{
 	}
 	
 	public double adicional() {
-		double adicional=0;
-		if(casado) adicional+=5000;
-		adicional+=(2000*hijos);
-		return adicional;
+		return super.adicional();
 	}
 }

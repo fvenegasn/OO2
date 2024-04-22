@@ -9,5 +9,4 @@ public class Agua extends Simple{
 	public String tipo() {
 		return "agua";
 	}
-
 }

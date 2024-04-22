@@ -1,5 +1,7 @@
 package ar.edu.unlp.info.oo2.ejercicio6;
 
+import java.util.List;
+
 public abstract class Simple implements Topografia{
 	
 	private int distribucion;
@@ -7,8 +9,6 @@ public abstract class Simple implements Topografia{
 	public Simple(int distr) {
 		distribucion=distr;
 	}
-	
-	public abstract String tipo();
 	
 	public boolean agregar(Topografia topografia) {
 		return false;
@@ -20,6 +20,20 @@ public abstract class Simple implements Topografia{
 	
 	public double calcular() {
 		return this.distribucion;
+	}
+
+	@Override
+	public boolean compararContraMixta(List<Topografia> topografia) {
+		return false;		
+	}
+
+	@Override
+	public boolean compararContraSimple(Topografia topografia) {
+		return this.equals(topografia);
+	}
+	
+	public boolean comparar(Topografia topografia) {
+		return topografia.compararContraSimple(topografia);
 	}
 
 }

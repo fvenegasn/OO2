@@ -7,3 +7,5 @@
 
 
 nunca confíes en drawio
+
+![image](https://github.com/fvenegasn/OO2/assets/102123565/ee78d732-1e01-4600-b81b-07060210a508)

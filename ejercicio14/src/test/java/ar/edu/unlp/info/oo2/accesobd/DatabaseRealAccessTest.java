@@ -3,6 +3,8 @@ package ar.edu.unlp.info.oo2.accesobd;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -21,21 +23,24 @@ public class DatabaseRealAccessTest {
 
     @Test
     void testGetSearchResults() {
-    	assertNull(this.proxy.getSearchResults("select * from comics where id=1"));
+    	Exception exception = assertThrows(RuntimeException.class, () -> {
+    		this.proxy.getSearchResults("select * from comics where id=1");
+        });
+    	assertTrue(exception.getMessage().equals("No estas logueado."));
     	proxy.login("OO2");
         assertEquals(Arrays.asList("Spiderman", "Marvel"), this.proxy.getSearchResults("select * from comics where id=1"));
         assertEquals(Collections.emptyList(), this.proxy.getSearchResults("select * from comics where id=10"));
         proxy.logout();
-        assertNull(this.proxy.getSearchResults("select * from comics where id=1"));
+        assertThrows(RuntimeException.class,()->{this.proxy.getSearchResults("select * from comics where id=1");});
     }
 
     @Test
     void testInsertNewRow() {
-    	assertEquals(this.proxy.insertNewRow(Arrays.asList("Patoruzú", "La flor")),0);
+    	assertThrows(RuntimeException.class,()->{this.proxy.insertNewRow(Arrays.asList("Patoruzú", "La flor"));});
     	proxy.login("OO2");
         assertEquals(3, this.proxy.insertNewRow(Arrays.asList("Patoruzú", "La flor")));
         assertEquals(Arrays.asList("Patoruzú", "La flor"), this.proxy.getSearchResults("select * from comics where id=3"));
         proxy.logout();
-        assertNotEquals(3, this.proxy.insertNewRow(Arrays.asList("Patoruzú", "La flor")));
+        assertThrows(RuntimeException.class,()->{this.proxy.insertNewRow(Arrays.asList("Patoruzú", "La flor"));});
     }
 }

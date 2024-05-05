@@ -30,7 +30,7 @@ public class DatabaseProxy implements DatabaseAccess{
 		if(chequearAcceso()) {
 			return dataBase.getSearchResults(queryString);
 		}
-		return null;
+			throw new RuntimeException("No estas logueado.");
 	}
 
 	@Override
@@ -38,7 +38,7 @@ public class DatabaseProxy implements DatabaseAccess{
 		if(chequearAcceso()) {
 			return dataBase.insertNewRow(rowData);
 		}
-		return 0;
+		throw new RuntimeException("No estas logueado.");
 	}
 
 }

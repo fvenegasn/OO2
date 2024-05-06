@@ -1,13 +1,14 @@
 package ar.edu.unlp.info.oo2.ejercicio15;
 
-public class Creacion extends Decorator{
-	
-	public Creacion(FileOO2 interfaz) {
+public class Permisos extends Decorator{
+
+	public Permisos(FileOO2 interfaz) {
 		super(interfaz);
 	}
 
 	@Override
 	public String hook() {
-		return this.creacion();
+		return this.permisos();
 	}
+
 }

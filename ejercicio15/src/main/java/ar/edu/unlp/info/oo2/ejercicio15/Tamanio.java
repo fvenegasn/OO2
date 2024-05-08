@@ -2,9 +2,12 @@ package ar.edu.unlp.info.oo2.ejercicio15;
 
 public class Tamanio extends Decorator {
 
-	private int tamanio;
-	
-	public String prettyPrint() {
-		return super.prettyPrint() + tamanio;
+	public Tamanio(FileOO2 interfaz) {
+		super(interfaz);
+	}
+
+	@Override
+	public String hook() { 
+		return this.tamanio();
 	}
 }

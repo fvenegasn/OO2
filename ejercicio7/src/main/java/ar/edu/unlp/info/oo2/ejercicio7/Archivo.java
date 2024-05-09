@@ -14,7 +14,7 @@ public class Archivo extends FileSystem{
 		return tamano;
 	}
 
-
+	@Override
 	public Archivo archivoMasGrande() {
 		return this;
 	}
@@ -23,10 +23,6 @@ public class Archivo extends FileSystem{
 	public Archivo archivoMasNuevo() {
 		return this;
 	}
-
-
-	
-	
 	
 	public void setTamano(int tamano) {
 		this.tamano=tamano;

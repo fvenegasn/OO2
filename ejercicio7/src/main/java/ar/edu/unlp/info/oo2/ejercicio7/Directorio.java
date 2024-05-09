@@ -16,11 +16,13 @@ public class Directorio extends FileSystem{
 	
 	@Override
 	public int tamanoTotalOcupado() {
-		return hijos.stream().mapToInt( hijo -> hijo.tamanoTotalOcupado()).sum();
+		return hijos.stream().mapToInt(hijo -> hijo.tamanoTotalOcupado()).sum();
 	}
 
 	public Archivo archivoMasGrande() {
-		return hijos.stream().map(hijo -> hijo.archivoMasGrande())
+		return hijos.stream().map(hijo -> hijo.archivoMasGrande()) // esto asegura que si está en un directorio, 
+																   // se meta al archivo que contiene adentro para 
+																   // obtener el dato
 				.max((h1,h2)-> Integer.compare(h1.tamanoTotalOcupado(), h2.tamanoTotalOcupado())).orElse(null);
 	}
 	

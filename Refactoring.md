@@ -1,7 +1,24 @@
 ### ** PROVISORIO** 
 
 # Ejercicio 1
-## Ejercicio 1.1
+## Ejercicio 1.1 - Protocolo de Cliente
+La clase Cliente tiene el siguiente protocolo. ¿Cómo puede mejorarlo? 
+```java
+/** 
+* Retorna el límite de crédito del cliente
+*/
+protected double lmtCrdt() {...
+
+/** 
+* Retorna el monto facturado al cliente desde la fecha f1 a la fecha f2
+*/
+protected double mtFcE(LocalDate f1, LocalDate f2) {...
+
+/** 
+* Retorna el monto cobrado al cliente desde la fecha f1 a la fecha f2
+*/
+protected double mtCbE(LocalDate f1, LocalDate f2) {...
+```
 Malos olores:
 * los nombres de los métodos no describen fácilmente su comportamiento o qué se espera de cada uno
 * los parámetrs LocalDate f1, f2 deben ser más descriptivos: ejemplo "desde-hasta" o "fechaInicio-fechaFin"

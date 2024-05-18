@@ -177,6 +177,120 @@ public class EmpleadoTemporario extends EmpleadoConHijos {
 }
 ```
 
+## Ejercicio 2.2
+
+```java
+public class Juego {
+    // ......
+    public void incrementar(Jugador j) {
+        j.puntuacion = j.puntuacion + 100;
+    }
+    public void decrementar(Jugador j) {
+        j.puntuacion = j.puntuacion - 50;
+    }
+
+public class Jugador {
+    public String nombre;
+    public String apellido;
+    public int puntuacion = 0;
+}
+}
+
+```
+### Inciso i
+Bad smells:
+* Feature envy
+* Clase de datos (data class)
+
+
+### Inciso 2
+* Feature envy y clase de datos -> Move method
+
+### Inciso 3
+```java
+public class Juego {
+    private Jugador jugador; //disfrutar
+	//....
+}
+
+public class Jugador {
+    public String nombre;
+    public String apellido;
+    public int puntuacion = 0;
+
+    public void incrementar() {
+        this.puntuacion = this.puntuacion + 100;
+    }
+    public void decrementar() {
+        this.puntuacion = this.puntuacion - 50;
+    }
+}
+```
+
+## Ejercicio 2.3
+
+```java
+/**
+* Retorna los últimos N posts que no pertenecen al usuario user
+*/
+public List<Post> ultimosPosts(Usuario user, int cantidad) {
+        
+    List<Post> postsOtrosUsuarios = new ArrayList<Post>();
+    for (Post post : this.posts) {
+        if (!post.getUsuario().equals(user)) {
+            postsOtrosUsuarios.add(post);
+        }
+    }
+        
+   // ordena los posts por fecha
+   for (int i = 0; i < postsOtrosUsuarios.size(); i++) {
+       int masNuevo = i;
+       for(int j= i +1; j < postsOtrosUsuarios.size(); j++) {
+           if (postsOtrosUsuarios.get(j).getFecha().isAfter(
+     postsOtrosUsuarios.get(masNuevo).getFecha())) {
+              masNuevo = j;
+           }    
+       }
+      Post unPost = postsOtrosUsuarios.set(i,postsOtrosUsuarios.get(masNuevo));
+      postsOtrosUsuarios.set(masNuevo, unPost);    
+   }
+        
+    List<Post> ultimosPosts = new ArrayList<Post>();
+    int index = 0;
+    Iterator<Post> postIterator = postsOtrosUsuarios.iterator();
+    while (postIterator.hasNext() &&  index < cantidad) {
+        ultimosPosts.add(postIterator.next());
+    }
+    return ultimosPosts;
+}
+
+
+```
+### inciso i
+Bad smells:
+* Reinventar la rueda
+* Metodo largo
+
+### inciso 2
+* Reinventar la rueda -> usar stream 
+* Metodo largo -> extract method
+
+### inciso 3
+* Consultar, esta bien asi o podriamos utilizar extract method para separar cada etapa?
+
+```
+java
+
+public List<Post> ultimosPosts(Usuario user, int cantidad) {
+    return this.posts.stream()
+                .filter(post -> post.getUsuario() !== user)
+                .sorted((p1,p2) -> p2.getFecha().compareTo(p1.getFecha()))
+                .limit(cantidad)
+                .collect(Collectors.toList());
+}
+
+```
+
 ## Ejercicio 2.6
 ### Inciso i
 Bad smell = Switch statement

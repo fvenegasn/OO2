@@ -53,6 +53,130 @@ Code smells:
 * Falta modularización, p.e. agregar método calcularPromedio(), agregar toString(), etc
 
 # Ejercicio 2
+Para cada una de las siguientes situaciones, realice en forma iterativa los siguientes pasos:
+(i) indique el mal olor,
+(ii) indique el refactoring que lo corrige, 
+(iii) aplique el refactoring, mostrando el resultado final (código y/o diseño según corresponda). 
+Si vuelve a encontrar un mal olor, retorne al paso (i). 
+
+## Ejercicio 2.1
+```java
+public class EmpleadoTemporario {
+    public String nombre;
+    public String apellido;
+    public double sueldoBasico = 0;
+    public double horasTrabajadas = 0;
+    public int cantidadHijos = 0;
+    // ......
+    public double sueldo() {
+	return this.sueldoBasico
+		+(this.horasTrabajadas * 500) 
+		+(this.cantidadHijos * 1000) 
+		-(this.sueldoBasico * 0.13);
+    }
+}
+
+public class EmpleadoPlanta {
+    public String nombre;
+    public String apellido;
+    public double sueldoBasico = 0;
+    public int cantidadHijos = 0;
+    // ......
+    
+    public double sueldo() {
+        return this.sueldoBasico 
+	+ (this.cantidadHijos * 2000)
+	- (this.sueldoBasico * 0.13);
+    }
+}
+
+public class EmpleadoPasante {
+    public String nombre;
+    public String apellido;
+    public double sueldoBasico = 0;
+    // ......
+    
+    public double sueldo() {
+        return this.sueldoBasico - (this.sueldoBasico * 0.13);
+    }
+}
+```
+
+### Inciso i
+Bad smells:
+* Falta herencia (clase Empleado)
+* Atributos públicos
+* Código duplicado
+
+### Inciso 2
+* Herencia y código duplicado -> Template Method
+* Privatizar atributos
+
+### Inciso 3
+Clase Empleado
+```java
+public abstract class Empleado {
+	private String nombre;
+	private String apellido;
+	private double sueldoBasico;
+
+	static double deducciones = 0.13;
+
+	public Empleado(String nombre, String apellido){
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.sueldoBasico = 0;
+	}
+
+	public double sueldo(){
+		return this.sueldoBasico - (this.sueldoBasico * deducciones);
+	}
+
+public class EmpleadoPasante extends Empleado {
+
+	public EmpleadoPasante(String nombre, String apellido){
+		super(nombre,apellido);
+	}
+}
+
+public abstract class EmpleadoConHijos extends Empleado{
+	private int cantidadHijos;
+
+	static double adicionalPorHijo = 1000;
+
+	public EmpleadoConHijos(String nombre, String apellido){
+		super(nombre,apellido);
+		this.cantidadHijos = 0;
+	}
+
+	public double sueldo(){
+		return super().sueldo() + this.cantidadHijos * adicionalPorHijo;
+	}
+}
+
+public class EmpleadoPlanta extends EmpleadoConHijos {
+
+	public EmpleadoPlanta(String nombre, String apellido){
+		super(nombre,apellido);
+	}
+}
+
+public class EmpleadoTemporario extends EmpleadoConHijos {
+	private double horasTrabajadas;
+
+	static double bonusPorHora = 500;
+
+	public EmpleadoTemporario(String nombre, String apellido){
+		super(nombre,apellido);
+		this.horasTrabajadas = 0;
+	}
+
+	public double sueldo(){
+		return super().sueldo() + this.horasTrabajadas * bonusPorHora;
+	}
+}
+```
+
 ## Ejercicio 2.6
 ### Inciso i
 Bad smell = Switch statement
@@ -61,3 +185,4 @@ Bad smell = Switch statement
 * Cómo levantamos como incorrecto algo que decimos que se puede resolver con streams? o de manera más simple? -> Es el famoso caso de "reinventar la rueda": sugerir que existe una librería en java que ya lo hace.
 * En qué caso levanto mal una "clase de datos"? Porque a veces es real el smell pero la necesito para poder identificar correctamente un objeto -> casi siempre este bad smell viene atado a la envidia de atributos
 * Es mas facil que patrones? -> No se, pero, al final del día, el objetivo del refactoring es preservar el comportamiento del sistema antes y después de la intervención, dando una mejora a cómo estaba antes
+* Es un bad smell que ya me inicialicen en la declaración de la variable el valor?

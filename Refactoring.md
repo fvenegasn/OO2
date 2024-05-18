@@ -29,6 +29,25 @@ Diseño revisado (figura 2) -> Parecería estar bien (o mejor que el anterior). 
 Hay envidia de atributos y la modificación es apropiada, ya que en el diseño inicial estaba delegando a cada persona una verificación realizable desde el Proyecto (pues, el proyecto conoce quién participa)
 
 ## Ejercicio 1.3
+Analice el código que se muestra a continuación. Indique qué code smells encuentra y cómo pueden corregirse.	
+```java
+public void imprimirValores() {
+	int totalEdades = 0;
+	double promedioEdades = 0;
+	double totalSalarios = 0;
+	
+	for (Empleado empleado : personal) {
+		totalEdades = totalEdades + empleado.getEdad();
+		totalSalarios = totalSalarios + empleado.getSalario();
+	}
+	promedioEdades = totalEdades / personal.size();
+		
+	String message = String.format("El promedio de las edades es %s y el total de salarios es %s", promedioEdades, totalSalarios);
+	
+	System.out.println(message);
+			
+}
+```
 Code smells:
 * Método largo -> si y no, te alarma que algo para pero no es el problema si
 * Falta modularización, p.e. agregar método calcularPromedio(), agregar toString(), etc

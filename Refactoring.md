@@ -291,12 +291,243 @@ public List<Post> ultimosPosts(Usuario user, int cantidad) {
 
 ```
 
+## Ejercicio 2.4
+```java
+public class Producto {
+    private String nombre;
+    private double precio;
+    
+    public double getPrecio() {
+        return this.precio;
+    }
+}
+
+public class ItemCarrito {
+    private Producto producto;
+    private int cantidad;
+        
+    public Producto getProducto() {
+        return this.producto;
+    }
+    
+    public int getCantidad() {
+        return this.cantidad;
+    }
+
+}
+
+public class Carrito {
+    private List<ItemCarrito> items;
+    
+    public double total() {
+return this.items.stream().mapToDouble(item -> item.getProducto().getPrecio() * item.getCantidad()).sum();
+    }
+}
+```
+### Inciso i
+Bad smell:
+* Feature envy
+* Clase de datos (ItemCarrito)
+
+### Inciso ii
+consultar cómo llamar la solución
+
+### Inciso iii
+```java
+public class Producto {
+    private String nombre;
+    private double precio;
+    
+    public double getPrecio() {
+        return this.precio;
+    }
+}
+
+public class ItemCarrito {
+    private Producto producto;
+    private int cantidad;
+        
+    public Producto getProducto() {
+        return this.producto;
+    }
+    
+    public int getCantidad() {
+        return this.cantidad;
+    }
+
+	public double total() {
+		return this.producto.getPrecio() * this.cantidad;
+	}
+
+}
+
+public class Carrito {
+    private List<ItemCarrito> items;
+    
+    public double total() {
+return this.items.stream().mapToDouble(item -> item.total()).sum();
+    }
+}
+```
+## Ejercicio 2.5
+```java
+public class Supermercado {
+   public void notificarPedido(long nroPedido, Cliente cliente) {
+     String notificacion = MessageFormat.format(“Estimado cliente, se le informa que hemos recibido su pedido con número {0}, el cual será enviado a la dirección {1}”, new Object[] { nroPedido, cliente.getDireccionFormateada() });
+
+     // lo imprimimos en pantalla, podría ser un mail, SMS, etc..
+    System.out.println(notificacion);
+  }
+}
+
+public class Cliente {
+   public String getDireccionFormateada() {
+	return 
+		this.direccion.getLocalidad() + “, ” +
+		this.direccion.getCalle() + “, ” +
+		this.direccion.getNumero() + “, ” +
+		this.direccion.getDepartamento()
+      ;
+}
+```
+### Inciso i
+Bad smells:
+* Feature envy? -> la dirección debe formatearse, no el cliente
+* Clase de datos (Dirección)
+No falta una conexión con Supermercado?
+
+### Inciso ii
+* Move method
+
+### Inciso iii
+```java
+public class Supermercado {
+   public void notificarPedido(long nroPedido, Cliente cliente) {
+     String notificacion = MessageFormat.format(“Estimado cliente, se le informa que hemos recibido su pedido con número {0}, el cual será enviado a la dirección {1}”, new Object[] { nroPedido, cliente.getDireccionFormateada() });
+
+     // lo imprimimos en pantalla, podría ser un mail, SMS, etc..
+    System.out.println(notificacion);
+  }
+}
+
+public class Direccion {
+   public String getDireccionFormateada() {
+	return 
+		this.direccion.getLocalidad() + “, ” +
+		this.direccion.getCalle() + “, ” +
+		this.direccion.getNumero() + “, ” +
+		this.direccion.getDepartamento()
+      ;
+}
+```
 ## Ejercicio 2.6
+```java
+public class Usuario {
+    String tipoSubscripcion;
+    // ...
+
+    public void setTipoSubscripcion(String unTipo) {
+   	 this.tipoSubscripcion = unTipo;
+    }
+    
+    public double calcularCostoPelicula(Pelicula pelicula) {
+   	 double costo = 0;
+   	 if (tipoSubscripcion=="Basico") {
+   		 costo = pelicula.getCosto() + pelicula.calcularCargoExtraPorEstreno();
+   	 }
+   	 else if (tipoSubscripcion== "Familia") {
+   		 costo = (pelicula.getCosto() + pelicula.calcularCargoExtraPorEstreno()) * 0.90;
+   	 }
+   	 else if (tipoSubscripcion=="Plus") {
+   		 costo = pelicula.getCosto();
+   	 }
+   	 else if (tipoSubscripcion=="Premium") {
+   		 costo = pelicula.getCosto() * 0.75;
+   	 }
+   	 return costo;
+    }
+}
+public class Pelicula {
+    LocalDate fechaEstreno;
+    // ...
+
+    public double getCosto() {
+   	 return this.costo;
+    }
+    
+    public double calcularCargoExtraPorEstreno(){
+	// Si la Película se estrenó 30 días antes de la fecha actual, retorna un cargo de 0$, caso contrario, retorna un cargo extra de 300$
+   	return (ChronoUnit.DAYS.between(this.fechaEstreno, LocalDate.now()) ) > 30 ? 0 : 300;
+    }
+}
+
+```
 ### Inciso i
 Bad smell = Switch statement
+
+### Inciso ii
+Replace conditional with polyporphism (switch statement), move method?
+
+### Inciso iii
+```java
+public abstract class Usuario {
+    // ...
+	public double calcularCostoPelicula(Pelicula pelicula) {
+		return pelicula.getCosto();
+	}
+
+   	 else if (tipoSubscripcion=="Plus") {
+   		 costo = pelicula.getCosto();
+   	 }
+   	 else if (tipoSubscripcion=="Premium") {
+   		 costo = pelicula.getCosto() * 0.75;
+   	 }
+   	 return costo;
+    }
+}
+public class UsuarioBasico extends Usuario {
+	public double calcularCostoPelicula(Pelicula pelicula) {
+		return super().calcularCostoPeliciula(pelicula) + pelicula.calcularCargoExtraPorEstreno();
+	}
+}
+public class UsuarioFamilia extends Usuario { // vale la pena hacer una jerarquía por copiar y pegar?
+	static double descuento = 0.90;	
+	public double calcularCostoPelicula(Pelicula pelicula) {
+		return super().calcularCostoPeliciula(pelicula) + pelicula.calcularCargoExtraPorEstreno() * descuento;
+	}
+}
+public class UsuarioPlus extends Usuario {
+	public double calcularCostoPelicula(Pelicula pelicula) {
+		return super().calcularCostoPeliciula(pelicula);
+	}
+}
+public class UsuarioPremium extends Usuario {
+	static double descuento = 0.75;
+	public double calcularCostoPelicula(Pelicula pelicula) {
+		return super().calcularCostoPeliciula(pelicula) * descuento;
+	}
+}
+
+
+public class Pelicula {
+    LocalDate fechaEstreno;
+    // ...
+
+    public double getCosto() {
+   	 return this.costo;
+    }
+    
+    public double calcularCargoExtraPorEstreno(){
+	// Si la Película se estrenó 30 días antes de la fecha actual, retorna un cargo de 0$, caso contrario, retorna un cargo extra de 300$
+   	return (ChronoUnit.DAYS.between(this.fechaEstreno, LocalDate.now()) ) > 30 ? 0 : 300;
+    }
+}
+
+```
 
 # Consultas
 * Cómo levantamos como incorrecto algo que decimos que se puede resolver con streams? o de manera más simple? -> Es el famoso caso de "reinventar la rueda": sugerir que existe una librería en java que ya lo hace.
 * En qué caso levanto mal una "clase de datos"? Porque a veces es real el smell pero la necesito para poder identificar correctamente un objeto -> casi siempre este bad smell viene atado a la envidia de atributos
 * Es mas facil que patrones? -> No se, pero, al final del día, el objetivo del refactoring es preservar el comportamiento del sistema antes y después de la intervención, dando una mejora a cómo estaba antes
 * Es un bad smell que ya me inicialicen en la declaración de la variable el valor?
+* Es un bad smell que no declaren magic numbers?

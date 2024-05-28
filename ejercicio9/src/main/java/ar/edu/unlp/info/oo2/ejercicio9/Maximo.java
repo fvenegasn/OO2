@@ -1,6 +1,6 @@
 package ar.edu.unlp.info.oo2.ejercicio9;
 
-public class Maximo implements EstadoExcursion{
+public class Maximo extends EstadoExcursion{
 
 	@Override
 	public void inscribir(Excursion contexto, Persona unUsuario) {
@@ -8,8 +8,8 @@ public class Maximo implements EstadoExcursion{
 	}
 
 	@Override
-	public String obtenerInformacion() {
-		return "estas petado";
+	public String obtenerInformacion(Excursion contexto) {
+		return super.obtenerInformacion(contexto);
 	}
 
 }

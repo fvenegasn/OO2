@@ -1,6 +1,6 @@
 package ar.edu.unlp.info.oo2.ejercicio9;
 
-public class Minimo implements EstadoExcursion{
+public class Minimo extends EstadoExcursion{
 
 	@Override
 	public void inscribir(Excursion contexto, Persona unUsuario) {
@@ -14,9 +14,9 @@ public class Minimo implements EstadoExcursion{
 	}
 
 	@Override
-	public String obtenerInformacion() {
-		// TODO Auto-generated method stub
-		return "estas en el limbo";
+	public String obtenerInformacion(Excursion excursion) {
+		return super.obtenerInformacion(excursion) +
+				"Usuarios faltantes para máximo: " + excursion.faltantesMaximo();
 	}
 
 }

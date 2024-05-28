@@ -18,7 +18,6 @@ public class Excursion {
 	
 	public Excursion(String nombre, LocalDate fechaInicio, LocalDate fechaFin, String puntoEncuentro, double costo,
 			int cupoMinimo, int cupoMaximo) {
-		super();
 		this.nombre = nombre;
 		this.fechaInicio = fechaInicio;
 		this.fechaFin = fechaFin;
@@ -51,20 +50,60 @@ public class Excursion {
 	public boolean alcanzoMaximo() {
 		return inscriptos.size()>=this.cupoMaximo;
 	}
-	
-	
 
 	public void setEstado(EstadoExcursion estado) {
 		this.estado = estado;
 	}
 
 	public String obtenerInformacion() {
-		return estado.obtenerInformacion();
+		return estado.obtenerInformacion(this);
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public LocalDate getFechaInicio() {
+		return fechaInicio;
+	}
+
+	public LocalDate getFechaFin() {
+		return fechaFin;
+	}
+
+	public String getPuntoEncuentro() {
+		return puntoEncuentro;
+	}
+
+	public double getCosto() {
+		return costo;
+	}
+
+	public int getCupoMinimo() {
+		return cupoMinimo;
+	}
+
+	public int getCupoMaximo() {
+		return cupoMaximo;
+	}
+
+	public List<Persona> getInscriptos() {
+		return inscriptos;
+	}
+
+	public List<Persona> getEspera() {
+		return espera;
+	}
+
+	public EstadoExcursion getEstado() {
+		return estado;
 	}
 	
-
-
+	public int faltantesMinimo() {
+		return this.cupoMinimo-this.inscriptos.size();
+	}
 	
-	
-
+	public int faltantesMaximo() {
+		return this.cupoMaximo-this.inscriptos.size();
+	}
 }

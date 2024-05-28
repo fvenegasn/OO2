@@ -9,7 +9,7 @@ public class Minimo extends EstadoExcursion{
 			contexto.agregarEspera(unUsuario);
 		}
 		else {
-			contexto.agregarInscripto(unUsuario);
+			contexto.agregarInscripto(unUsuario); // CONSULTAR SI ESTÁ BIEN
 		}
 	}
 

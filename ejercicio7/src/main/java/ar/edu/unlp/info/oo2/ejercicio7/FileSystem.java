@@ -31,4 +31,8 @@ public abstract class FileSystem {
 		return null;
 	}
 	
+	public void setFechaCreacion(LocalDateTime fecha) {
+		this.fechaCreacion = fecha;		
+	}
+	
 }

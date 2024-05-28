@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -19,6 +21,7 @@ public class FileSystemTest {
 	
 	@BeforeEach
 	void setUp() {
+		a1=new Archivo("whatsApp");
 		a2=new Archivo("fifa 16");
 		a3=new Archivo("fifa 15");
 		a4=new Archivo("geometry dash");
@@ -41,16 +44,12 @@ public class FileSystemTest {
 		d2.agregarArchivo(a8);
 		d2.agregarArchivo(a9);
 		
-		
 		d3.agregarArchivo(a5);
 		d3.agregarArchivo(a6);
 		
 		d4.agregarArchivo(d1);
 		d4.agregarArchivo(d2);
 		d4.agregarArchivo(d3);
-
-		
-
 	}
 	
 	@Test
@@ -67,13 +66,12 @@ public class FileSystemTest {
 		assertEquals(a6,d4.archivoMasGrande());
 	}
 	
-	/*@Test
+	@Test
 	void archivoMasNuevoTest() throws InterruptedException {
-		TimeUnit.SECONDS.sleep(5);
-		a1=new Archivo("whatsApp");
+		a9.setFechaCreacion(LocalDate.of(2024, Month.AUGUST, 5).atStartOfDay());
 		assertNotEquals(a1.getNombre(),d4.archivoMasNuevo().getNombre());
 		assertEquals(a9.getNombre(),d4.archivoMasNuevo().getNombre());
-	}*/
+	}
 	
 	@Test
 	void buscarTest() {

@@ -4,7 +4,7 @@ public class InferiorMinimo extends EstadoExcursion{
 
 	@Override
 	public void inscribir(Excursion contexto, Persona unUsuario) {
-		contexto.agregarInscripto(unUsuario); // fabo si algun dia lees esto cambie el orden aca (estaba desp del if)
+		contexto.agregarInscripto(unUsuario);
 		if(contexto.alcanzoMinimo()) {
 			contexto.setEstado(new Minimo());
 		}

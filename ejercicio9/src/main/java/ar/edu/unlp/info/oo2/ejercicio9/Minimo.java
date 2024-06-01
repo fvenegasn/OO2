@@ -4,12 +4,9 @@ public class Minimo extends EstadoExcursion{
 
 	@Override
 	public void inscribir(Excursion contexto, Persona unUsuario) {
+		contexto.agregarInscripto(unUsuario); 
 		if(contexto.alcanzoMaximo()) {
 			contexto.setEstado(new Maximo());
-			contexto.agregarEspera(unUsuario);
-		}
-		else {
-			contexto.agregarInscripto(unUsuario); // CONSULTAR SI ESTÁ BIEN
 		}
 	}
 

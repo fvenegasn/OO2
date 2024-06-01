@@ -21,13 +21,16 @@ public class ExcursionTest {
 		usuario2 = new Persona("Fran");
 		excursion = new Excursion("Dos dias kayak bajando el Paraná", LocalDate.of(2024, 5, 25), 
 									LocalDate.of(2024, 5, 27), "La facu", 10000.00, 1,2);
+		// inferiorminimo
 		excursion.inscribir(usuario1);
-		excursion.inscribir(usuario2);		
+		// minimo
+		excursion.inscribir(usuario2);
+		// maximo
 	}
-		
 	
 	@Test
 	void excursionTest() {
+		// como esta en maximo a nector si o si lo manda a la espera
 		usuario3 = new Persona("Nector");
 		excursion.inscribir(usuario3);
 		System.out.println(excursion.obtenerInformacion());

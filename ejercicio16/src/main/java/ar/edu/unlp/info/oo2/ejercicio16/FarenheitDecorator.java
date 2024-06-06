@@ -10,7 +10,7 @@ public class FarenheitDecorator extends WeatherDecorator{
 	@Override
 	public String displayData() {
 		// TODO Auto-generated method stub
-		return "Temperatura F: "+this.componente.getTemperatura();
+		return this.componente.displayData()+"Temperatura F: "+this.componente.getTemperatura();
 	}
 
 }

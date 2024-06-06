@@ -15,7 +15,7 @@ public class WeatherTest {
 	void setUp() {
 		List<Double>temperaturas=new ArrayList<Double>();
 		temperaturas.add(86d); temperaturas.add(80.6); temperaturas.add(89.6);
-		basico=new HomeWeatherStation(86,1008,200,temperaturas);
+		basico=new WeatherAdapter(86,1008,200,temperaturas);
 	}
 	
 	@Test
@@ -23,12 +23,10 @@ public class WeatherTest {
 		WeatherData celcius=new CelciusDecorator(basico);
 		WeatherData presion=new PresionDecorator(celcius);
 		WeatherData radiacion=new RadiacionDecorator(presion);
-		WeatherData promedio=new PromedioCelciusDecorator(radiacion);
-		WeatherData minimo=new MinimoCelciusDecorator(promedio);
-		WeatherData maximo=new MaximoCelsiusDecorator(minimo);
-		System.out.println("BASICO: "+basico.displayData());
-		System.out.println("MAXIMO: "+maximo.displayData());
-		
+		WeatherData promedio=new PromedioDecorator(radiacion);
+		WeatherData minimo=new MinimoDecorator(promedio);
+		WeatherData maximo=new MaximoDecorator(minimo);
+		System.out.println(maximo.displayData()); // equivale a assertequals
 	}
 	
 }

@@ -12,7 +12,6 @@ public class HomeWeatherStation implements WeatherData{
 	
 
 	public HomeWeatherStation(double temperatura, double presion, double radiacionSolar, List<Double> temperaturas) {
-		super();
 		this.temperatura = temperatura;
 		this.presion = presion;
 		this.radiacionSolar = radiacionSolar;

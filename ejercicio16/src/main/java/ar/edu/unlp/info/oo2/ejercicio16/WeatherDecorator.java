@@ -9,7 +9,6 @@ public abstract class WeatherDecorator implements WeatherData{
 	
 	
 	public WeatherDecorator(WeatherData componente) {
-		super();
 		this.componente = componente;
 	}
 

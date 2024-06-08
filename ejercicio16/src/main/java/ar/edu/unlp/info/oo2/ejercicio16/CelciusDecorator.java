@@ -26,7 +26,8 @@ public class CelciusDecorator extends WeatherDecorator{
 	@Override
 	public String displayData() {
 		// TODO Auto-generated method stub
-		return this.componente.displayData()+this.componente.displayData()+"Temperatura C: "+((this.componente.getTemperatura()-32)/1.8);
+		//return this.componente.displayData()+"Temperatura C: "+((this.componente.getTemperatura()-32)/1.8);
+		return this.componente.displayData()+"Temperatura C: "+((this.getTemperatura()));
 	}
 
 }

@@ -3,8 +3,7 @@
 
 ### amigo amigo no vayas a comparar acá porque seguramente NO estén bien las soluciones
 
-# 🤠🤠🤠🤠🤠🤠🤠🤠🤠🤠🤝🤝🤝🤝🤝🤝🤝🤝💋💋💋💋💋💋💋💋💋
-
+# 🤠🤠🤠🤠🤠🤠🤠🤠🤠🤠COMISIÓN 🤝🤝🤝🤝5🤝🤝🤝🤝MASTERCLASS💋💋💋💋💋💋💋💋💋
 
 nunca confíes en drawio
 
